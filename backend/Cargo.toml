@@ -1,0 +1,8 @@
+[package]
+edition = "2021"
+name = "todo"
+version = "0.1.0"
+[dependencies]
+actix-rt = "1"
+actix-web = "2"
+thiserror = "*"
