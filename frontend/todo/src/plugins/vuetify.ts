@@ -4,7 +4,6 @@ import "vuetify/styles";
 
 // Vuetify
 import { createVuetify } from "vuetify";
-import colors from "vuetify/lib/util/color";
 
 const customTheme = {
   dark: true,
