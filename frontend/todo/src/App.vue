@@ -23,14 +23,18 @@ const newToDo = () => {
 
 <template>
   <v-app>
-    <v-app-bar color="prymary">
+    <v-app-bar color="primary">
       <v-toolbar-title>ToDo</v-toolbar-title>
       <v-btn text elevation="3" @click="newToDo">new</v-btn>
     </v-app-bar>
     <v-main>
-      <ul>
-        <li v-for="todo in todoModel.list">{{ todo.description }}</li>
-      </ul>
+      <v-container>
+        <v-col v-for="todo in todoModel.list">
+          <v-card color="secondary">
+            {{ todo.description }}
+          </v-card>
+        </v-col>
+      </v-container>
     </v-main>
   </v-app>
 </template>
