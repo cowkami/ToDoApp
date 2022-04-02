@@ -22,19 +22,34 @@ const newToDo = () => {
 </script>
 
 <template>
-  <v-app>
-    <v-app-bar color="primary">
-      <v-toolbar-title>ToDo</v-toolbar-title>
-      <v-btn text elevation="3" @click="newToDo">new</v-btn>
+  <v-app class="full-height">
+    <v-app-bar color="primary" app>
+      <v-app-bar-title>ToDo</v-app-bar-title>
+      <v-btn icon elevation="3" @click="newToDo">
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
     </v-app-bar>
-    <v-main>
-      <v-container>
-        <v-col v-for="todo in todoModel.list">
-          <v-card color="secondary">
-            {{ todo.description }}
-          </v-card>
-        </v-col>
+
+    <v-main app>
+      <v-container style="max-width: 100% max-height: 100% height: 100%">
+        hello
       </v-container>
     </v-main>
+
+    <v-footer
+      style="width: 100% max-height: 10%"
+      color="primary"
+      padless
+      bottom
+      app
+    >
+      2022 Cowkami
+    </v-footer>
   </v-app>
 </template>
+
+<style>
+.full-height {
+  height: 100%;
+}
+</style>
