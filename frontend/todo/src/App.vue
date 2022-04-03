@@ -39,9 +39,9 @@ const changeDone = (idName: string, todo: ToDo) => {
 
 const changeBreakline = (idname: string, is_done: boolean) => {
   const obj = document.getElementById(idname);
-  if (obj?.style.textDecoration == "line-through" && is_done) {
-    obj.style.textDecoration = "none";
-  } else if (obj?.style.textDecoration == "none" && !is_done) {
+  if (obj?.style.textDecoration == "line-through" && !is_done) {
+    obj.style.textDecoration = "";
+  } else if (obj?.style.textDecoration == "" && is_done) {
     obj.style.textDecoration = "line-through";
   }
 };
@@ -59,24 +59,32 @@ const changeBreakline = (idname: string, is_done: boolean) => {
 
       <v-main app>
         <v-card style="height: 100%">
-          <v-item-list v-for="todo in todoModel.list">
+          <v-item-list
+            v-for="(todo, index) in todoModel.list"
+            v-bind:index="index"
+          >
             <v-container elevation="20">
               <v-row>
                 <v-btn
                   v-if="todo.done"
-                  @click="changeDone('todoText', todo)"
+                  @click="changeDone(index.toString(), todo)"
+                  elevation="0"
                   icon
                 >
-                  <v-icon elevation="0" small>mdi-check-circle</v-icon>
+                  <v-icon small>mdi-check-circle</v-icon>
                 </v-btn>
-                <v-btn v-else @click="changeDone('todoText', todo)" icon>
+                <v-btn
+                  v-else
+                  @click="changeDone(index.toString(), todo)"
+                  elevation="0"
+                  icon
+                >
                   <v-icon small>mdi-checkbox-blank-circle</v-icon>
                 </v-btn>
 
                 <v-card elevation="0">
-                  <v-card-title id="todoText">
+                  <v-card-title v-bind:id="index.toString()">
                     {{ todo.done }} {{ todo.description }}
-                    hey
                   </v-card-title>
                 </v-card>
               </v-row>
