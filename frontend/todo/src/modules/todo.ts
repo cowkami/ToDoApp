@@ -1,23 +1,23 @@
-interface ToDo {
+export interface IToDo {
   description: string;
   done: boolean;
 }
 
-export type ToDoList = ToDo[];
+export type ToDoList = IToDo[];
 
 export function newToDoList(): ToDoList {
   return [];
 }
 
 export function addToDo(todoList: ToDoList) {
-  const todo: ToDo = {
+  const todo: IToDo = {
     description: "new todo",
     done: false,
   };
   todoList.push(todo);
 }
 
-export function changeDone(idName: string, todo: ToDo) {
+export function changeDone(idName: string, todo: IToDo) {
   if (todo.done) {
     undoneToDo(todo);
   } else {
@@ -26,11 +26,11 @@ export function changeDone(idName: string, todo: ToDo) {
   changeBreakline(idName, todo.done);
 }
 
-function doneToDo(todo: ToDo) {
+function doneToDo(todo: IToDo) {
   todo.done = true;
 }
 
-function undoneToDo(todo: ToDo) {
+function undoneToDo(todo: IToDo) {
   todo.done = false;
 }
 
