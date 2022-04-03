@@ -1,52 +1,8 @@
 <script setup lang="ts">
 import { reactive } from "vue";
+import { ToDoList, newToDoList, addToDo, changeDone } from "./modules/todo";
 
-interface ToDo {
-  description: string;
-  done: boolean;
-}
-
-interface ToDoList {
-  list: ToDo[];
-}
-
-const todoModel = reactive<ToDoList>({ list: [] });
-
-const newToDo = () => {
-  const todo: ToDo = {
-    description: "new todo",
-    done: false,
-  };
-  todoModel.list.push(todo);
-};
-
-const doneToDo = (todo: ToDo) => {
-  todo.done = true;
-};
-
-const undoneToDo = (todo: ToDo) => {
-  todo.done = false;
-};
-
-const changeDone = (idName: string, todo: ToDo) => {
-  if (todo.done) {
-    undoneToDo(todo);
-  } else {
-    doneToDo(todo);
-  }
-  changeBreakline(idName, todo.done);
-};
-
-const changeBreakline = (idname: string, is_done: boolean) => {
-  const obj = document.getElementById(idname);
-  if (obj?.style.textDecoration == "line-through" && !is_done) {
-    obj.style.textDecoration = "";
-  } else if (obj?.style.textDecoration == "" && is_done) {
-    obj.style.textDecoration = "line-through";
-  } else {
-    console.log("undefined condition");
-  }
-};
+const todoList = reactive<ToDoList>(newToDoList());
 </script>
 
 <template>
@@ -54,17 +10,14 @@ const changeBreakline = (idname: string, is_done: boolean) => {
     <div class="full-height">
       <v-app-bar elevation="0" style="width: 100%" color="primary" app>
         <v-app-bar-title>ToDo</v-app-bar-title>
-        <v-btn icon elevation="3" @click="newToDo">
+        <v-btn icon elevation="3" @click="addToDo(todoList)">
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </v-app-bar>
 
       <v-main app>
         <v-card style="height: 100%">
-          <v-item-list
-            v-for="(todo, index) in todoModel.list"
-            v-bind:index="index"
-          >
+          <v-item-list v-for="(todo, index) in todoList" v-bind:index="index">
             <v-container elevation="20">
               <v-row>
                 <v-btn
@@ -78,7 +31,7 @@ const changeBreakline = (idname: string, is_done: boolean) => {
 
                 <v-card elevation="0">
                   <v-card-title v-bind:id="index.toString()">
-                    {{ todo.done }} {{ todo.description }}
+                    {{ todo.description }}
                   </v-card-title>
                 </v-card>
               </v-row>
