@@ -15,11 +15,15 @@ defineProps<{
         <v-icon v-else>mdi-checkbox-blank-circle</v-icon>
       </v-btn>
 
-      <v-card elevation="0">
-        <v-card-title v-bind:id="index.toString()">
-          {{ todo.description }}
-        </v-card-title>
-      </v-card>
+      <v-textarea
+        v-model="todo.description"
+        v-bind:id="index.toString()"
+        auto-grow
+        rows="1"
+        v-bind:hide-details="true"
+        density="compact"
+      >
+      </v-textarea>
     </v-row>
   </v-container>
 </template>

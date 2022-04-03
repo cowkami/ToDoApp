@@ -4,6 +4,7 @@ import { ToDoList, newToDoList, addToDo } from "./modules/todo";
 import ToDo from "./components/ToDo.vue";
 
 const todoList = reactive<ToDoList>(newToDoList());
+addToDo(todoList);
 </script>
 
 <template>

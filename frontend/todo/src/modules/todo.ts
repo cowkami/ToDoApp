@@ -11,7 +11,7 @@ export function newToDoList(): ToDoList {
 
 export function addToDo(todoList: ToDoList) {
   const todo: IToDo = {
-    description: "new todo",
+    description: "",
     done: false,
   };
   todoList.push(todo);
