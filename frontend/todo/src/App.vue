@@ -43,6 +43,8 @@ const changeBreakline = (idname: string, is_done: boolean) => {
     obj.style.textDecoration = "";
   } else if (obj?.style.textDecoration == "" && is_done) {
     obj.style.textDecoration = "line-through";
+  } else {
+    console.log("undefined condition");
   }
 };
 </script>
@@ -66,20 +68,12 @@ const changeBreakline = (idname: string, is_done: boolean) => {
             <v-container elevation="20">
               <v-row>
                 <v-btn
-                  v-if="todo.done"
                   @click="changeDone(index.toString(), todo)"
                   elevation="0"
                   icon
                 >
-                  <v-icon small>mdi-check-circle</v-icon>
-                </v-btn>
-                <v-btn
-                  v-else
-                  @click="changeDone(index.toString(), todo)"
-                  elevation="0"
-                  icon
-                >
-                  <v-icon small>mdi-checkbox-blank-circle</v-icon>
+                  <v-icon v-if="todo.done" small>mdi-check-circle</v-icon>
+                  <v-icon v-else small>mdi-checkbox-blank-circle</v-icon>
                 </v-btn>
 
                 <v-card elevation="0">
