@@ -19,32 +19,76 @@ const newToDo = () => {
   };
   todoModel.list.push(todo);
 };
+
+const doneToDo = (todo: ToDo) => {
+  todo.done = true;
+};
+
+const undoneToDo = (todo: ToDo) => {
+  todo.done = false;
+};
+
+const changeDone = (idName: string, todo: ToDo) => {
+  if (todo.done) {
+    undoneToDo(todo);
+  } else {
+    doneToDo(todo);
+  }
+  changeBreakline(idName, todo.done);
+};
+
+const changeBreakline = (idname: string, is_done: boolean) => {
+  const obj = document.getElementById(idname);
+  if (obj?.style.textDecoration == "line-through" && is_done) {
+    obj.style.textDecoration = "none";
+  } else if (obj?.style.textDecoration == "none" && !is_done) {
+    obj.style.textDecoration = "line-through";
+  }
+};
 </script>
 
 <template>
   <v-app class="full-height">
-    <v-app-bar color="primary" app>
-      <v-app-bar-title>ToDo</v-app-bar-title>
-      <v-btn icon elevation="3" @click="newToDo">
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
-    </v-app-bar>
+    <div class="full-height">
+      <v-app-bar elevation="0" style="width: 100%" color="primary" app>
+        <v-app-bar-title>ToDo</v-app-bar-title>
+        <v-btn icon elevation="3" @click="newToDo">
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </v-app-bar>
 
-    <v-main app>
-      <v-container style="max-width: 100% max-height: 100% height: 100%">
-        hello
-      </v-container>
-    </v-main>
+      <v-main app>
+        <v-card style="height: 100%">
+          <v-item-list v-for="todo in todoModel.list">
+            <v-container elevation="20">
+              <v-row>
+                <v-btn
+                  v-if="todo.done"
+                  @click="changeDone('todoText', todo)"
+                  icon
+                >
+                  <v-icon elevation="0" small>mdi-check-circle</v-icon>
+                </v-btn>
+                <v-btn v-else @click="changeDone('todoText', todo)" icon>
+                  <v-icon small>mdi-checkbox-blank-circle</v-icon>
+                </v-btn>
 
-    <v-footer
-      style="width: 100% max-height: 10%"
-      color="primary"
-      padless
-      bottom
-      app
-    >
-      2022 Cowkami
-    </v-footer>
+                <v-card elevation="0">
+                  <v-card-title id="todoText">
+                    {{ todo.done }} {{ todo.description }}
+                    hey
+                  </v-card-title>
+                </v-card>
+              </v-row>
+            </v-container>
+          </v-item-list>
+        </v-card>
+      </v-main>
+
+      <v-footer style="width: 100%" color="primary" padless bottom fixed app>
+        2022 cowkami
+      </v-footer>
+    </div>
   </v-app>
 </template>
 
