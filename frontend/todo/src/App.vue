@@ -20,7 +20,9 @@ addToDo(todoList);
       <v-main app>
         <v-card style="height: 100%">
           <v-item-list v-for="(todo, index) in todoList" v-bind:index="index">
-            <ToDo v-bind:index="index" v-bind:todo="todo" />
+            <template v-if="!todo.deleted">
+              <ToDo v-bind:index="index" v-bind:todo="todo" />
+            </template>
           </v-item-list>
         </v-card>
       </v-main>

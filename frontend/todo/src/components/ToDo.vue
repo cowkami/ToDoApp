@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IToDo, changeDone } from "../modules/todo";
+import { IToDo, changeDone, deleteToDo } from "../modules/todo";
 
 defineProps<{
   index: number;
@@ -19,7 +19,7 @@ defineProps<{
         </v-container>
       </v-col>
       <v-col class="pa-1">
-        <v-container fluid class="pl-0">
+        <v-container fluid class="pl-0 pr-2">
           <textarea
             rows="1"
             v-model="todo.description"
@@ -28,6 +28,15 @@ defineProps<{
           />
         </v-container>
       </v-col>
+      <template v-if="todo.done">
+        <v-col cols="auto" class="pa-1">
+          <v-container class="pa-1">
+            <v-btn elevation="0" @click="deleteToDo(todo)" icon small>
+              <v-icon> mdi-close-circle </v-icon>
+            </v-btn>
+          </v-container>
+        </v-col>
+      </template>
     </v-row>
   </v-container>
 </template>

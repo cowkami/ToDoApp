@@ -1,6 +1,7 @@
 export interface IToDo {
   description: string;
   done: boolean;
+  deleted: boolean;
 }
 
 export type ToDoList = IToDo[];
@@ -13,6 +14,7 @@ export function addToDo(todoList: ToDoList) {
   const todo: IToDo = {
     description: "",
     done: false,
+    deleted: false,
   };
   todoList.push(todo);
 }
@@ -24,6 +26,10 @@ export function changeDone(idName: string, todo: IToDo) {
     doneToDo(todo);
   }
   changeBreakline(idName, todo.done);
+}
+
+export function deleteToDo(todo: IToDo) {
+  todo.deleted = true;
 }
 
 function doneToDo(todo: IToDo) {
