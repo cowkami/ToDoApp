@@ -27,7 +27,16 @@ addToDo(todoList);
         </v-card>
       </v-main>
       <v-footer style="width: 100%" color="primary" padless bottom fixed app>
-        2022 cowkami
+        <v-card
+          elevation="0"
+          rounded="0"
+          color="primary"
+          class="justify-center"
+        >
+          <v-card-text>
+            {{ new Date().getFullYear() }} - <strong>Cowkami</strong>
+          </v-card-text>
+        </v-card>
       </v-footer>
     </div>
   </v-app>
