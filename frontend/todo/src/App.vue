@@ -1,10 +1,42 @@
 <script setup lang="ts">
-import { reactive } from "vue";
-import { ToDoList, newToDoList, addToDo } from "./modules/todo";
+import { reactive, ref } from "vue";
+import { IToDo, ToDoList, newToDoList, addToDo } from "./modules/todo";
 import ToDo from "./components/ToDo.vue";
 
 const todoList = reactive<ToDoList>(newToDoList());
 addToDo(todoList);
+
+const ViewMode = {
+  All: "All",
+  ToDo: "ToDo",
+  Done: "Done",
+} as const;
+
+type ViewMode = typeof ViewMode[keyof typeof ViewMode];
+
+const viewMode = ref<ViewMode>(ViewMode.ToDo);
+
+function switchMode(target_mode: ViewMode) {
+  viewMode.value = target_mode;
+}
+
+const viewModeOptions = Object.values(ViewMode);
+
+function is_visible(todo: IToDo): boolean {
+  let flag: boolean;
+  switch (viewMode.value) {
+    case ViewMode.All:
+      flag = true;
+      break;
+    case ViewMode.ToDo:
+      flag = !todo.done;
+      break;
+    case ViewMode.Done:
+      flag = todo.done;
+      break;
+  }
+  return !todo.deleted && flag;
+}
 </script>
 
 <template>
@@ -20,7 +52,7 @@ addToDo(todoList);
       <v-main app>
         <v-card style="height: 100%">
           <v-item-list v-for="(todo, index) in todoList" v-bind:index="index">
-            <template v-if="!todo.deleted">
+            <template v-if="is_visible(todo)">
               <ToDo v-bind:index="index" v-bind:todo="todo" />
             </template>
           </v-item-list>
@@ -37,6 +69,22 @@ addToDo(todoList);
             {{ new Date().getFullYear() }} - <strong>Cowkami</strong>
           </v-card-text>
         </v-card>
+        <v-spacer> </v-spacer>
+        <v-menu>
+          <template v-slot:activator="{ props }">
+            <v-btn color="primary" v-bind="props" icon>
+              <v-icon>mdi-eye</v-icon>
+            </v-btn>
+          </template>
+          <v-list elevation="5">
+            <v-list-item
+              v-for="option in viewModeOptions"
+              @click="switchMode(option)"
+            >
+              <v-list-item-title>{{ option }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-footer>
     </div>
   </v-app>
