@@ -51,9 +51,9 @@ function is_visible(todo: IToDo): boolean {
 
       <v-main app>
         <v-card style="height: 100%">
-          <v-item-list v-for="(todo, index) in todoList" v-bind:index="index">
+          <v-item-list v-for="todo in todoList">
             <template v-if="is_visible(todo)">
-              <ToDo v-bind:index="index" v-bind:todo="todo" />
+              <ToDo v-bind:todo="todo" />
             </template>
           </v-item-list>
         </v-card>
