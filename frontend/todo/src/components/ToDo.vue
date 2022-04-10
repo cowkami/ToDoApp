@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { IToDo, flipDone, deleteToDo } from "../modules/todo";
 
+function blur(event: any) {
+  event.target.blur();
+}
+
+function newLine(text: string) {
+  text = `${text}\n`;
+}
+
 defineProps<{
   todo: IToDo;
 }>();
@@ -20,9 +28,12 @@ defineProps<{
       <v-col class="pa-1">
         <v-container fluid class="pl-0 pr-2">
           <textarea
-            rows="1"
             v-model="todo.description"
             v-bind:class="{ done: todo.done }"
+            v-on:keydown.enter.exact.prevent
+            v-on:keyup.enter.exact="blur"
+            v-on:keydown.enter.shift.exact="newLine(todo.description)"
+            rows="1"
             style="color: white; width: 100%"
           />
         </v-container>

@@ -3,9 +3,6 @@ import { reactive, ref } from "vue";
 import { IToDo, ToDoList, newToDoList, addToDo } from "./modules/todo";
 import ToDo from "./components/ToDo.vue";
 
-const todoList = reactive<ToDoList>(newToDoList());
-addToDo(todoList);
-
 const ViewMode = {
   All: "All",
   ToDo: "ToDo",
@@ -37,6 +34,9 @@ function is_visible(todo: IToDo): boolean {
   }
   return !todo.deleted && flag;
 }
+
+const todoList = reactive<ToDoList>(newToDoList());
+addToDo(todoList);
 </script>
 
 <template>
